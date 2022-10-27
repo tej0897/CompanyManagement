@@ -13,11 +13,7 @@ public class Company {
     private int companyID;
     private String companyName;
     private double stockPrice;
-    private String location;
-
-    @JsonIgnore
-    @OneToMany(targetEntity = Stock.class)
-    private Set<Stock> stockSet;
+    private double noOfStocks;
 
     public int getCompanyID() {
         return companyID;
@@ -43,12 +39,22 @@ public class Company {
         this.stockPrice = stockPrice;
     }
 
-    public String getLocation() {
-        return location;
+    public double getNoOfStocks() {
+        return noOfStocks;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setNoOfStocks(double noOfStocks) {
+        this.noOfStocks = noOfStocks;
+    }
+
+    public Company(int companyID, String companyName, double stockPrice, double noOfStocks) {
+        this.companyID = companyID;
+        this.companyName = companyName;
+        this.stockPrice = stockPrice;
+        this.noOfStocks = noOfStocks;
+    }
+
+    public Company() {
     }
 
     @Override
@@ -57,17 +63,7 @@ public class Company {
                 "companyID=" + companyID +
                 ", companyName='" + companyName + '\'' +
                 ", stockPrice=" + stockPrice +
-                ", location='" + location + '\'' +
+                ", noOfStocks=" + noOfStocks +
                 '}';
-    }
-
-    public Company(int companyID, String companyName, double stockPrice, String location) {
-        this.companyID = companyID;
-        this.companyName = companyName;
-        this.stockPrice = stockPrice;
-        this.location = location;
-    }
-
-    public Company() {
     }
 }

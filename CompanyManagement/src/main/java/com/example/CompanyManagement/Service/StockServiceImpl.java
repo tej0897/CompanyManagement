@@ -25,10 +25,10 @@ public class StockServiceImpl implements StockService{
     @Override
     public boolean addStock(Stock stock) {
         Stock stock1 = new Stock();
-
         stock1.setStockID(stock.getStockID());
         stock1.setStockPrice(stock.getStockPrice());
         stock1.setCompanyIDfk(stock.getCompanyIDfk());
+        stock1.setsCompanyName(stock.getsCompanyName());
         stockRepo.saveAndFlush(stock1);
         return true;
     }

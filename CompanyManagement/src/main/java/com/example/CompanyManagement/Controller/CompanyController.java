@@ -24,19 +24,7 @@ public class CompanyController {
     @Autowired
     private StockServiceImpl stockService;
 
-    @GetMapping("/getAllCompanies")
-    public ResponseEntity<?> getAllCompanies(){
-        List<Company> companies = companyService.getAllCompany();
-        if (companies!=null){
-//            for (Company company : companies){
-//                int stockSet =stockService.getAllStocks(company.getCompanyID());
-//                company.setStockPrice(stockSet);
-//            }
-            return new ResponseEntity<>(companies, HttpStatus.OK);
-        }
-        return MyResponse.generateCustomResponseFormat("Could not retrieve data", HttpStatus.CONFLICT,null);
-    }
-
+    // Register Company
     @PostMapping("/addCompany")
     public ResponseEntity<?> addCompany(@RequestBody Company company) throws CompanyAlreadyExistsException
     {
@@ -46,14 +34,37 @@ public class CompanyController {
         return new ResponseEntity<>("Conflict while adding", HttpStatus.CONFLICT);
     }
 
-    @Hidden
+    // Search Company By ID:
+    @GetMapping("/findCompany/{companyID}")
+    public ResponseEntity<?> getCompanyByID(@PathVariable("companyID") int companyID){
+        Company company = companyService.getCompanyByID(companyID);
+        if (company!=null){
+            return new ResponseEntity<Company>(company, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Cannot be fetched", HttpStatus.NO_CONTENT);
+    }
+
+    // Get All Companies
+
+    @GetMapping("/getAllCompanies")
+    public ResponseEntity<?> getAllCompanies() {
+        List<Company> companies = companyService.getAllCompany();
+        if (companies!=null){
+            return new ResponseEntity<>(companies, HttpStatus.OK);
+        }
+        return MyResponse.generateCustomResponseFormat("Could not retrieve data", HttpStatus.CONFLICT,null);
+    }
+
+    // delete company by ID
     @DeleteMapping("/deleteCompany/{companyID}")
     public ResponseEntity<?> deleteCompany(@PathVariable("companyID") int companyID){
-        if (companyService.deleteCompany(companyID)){   //stockService.deleteStock(companyID) &&
+        if (companyService.deleteCompany(companyID)){   //stockService.deleteStock(companyID)
             return new ResponseEntity<>("Record Deleted", HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>("record cannot be deleted", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    // Update Company Details by ID
 
     @PutMapping("/updateCompany")
     public ResponseEntity<?> updateCompany(@RequestBody Company company){
@@ -63,14 +74,6 @@ public class CompanyController {
         return new ResponseEntity<>("cannot be updated", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @GetMapping("/getCompanyID/{id}")
-    public ResponseEntity<?> getCompanyByID(@PathVariable("companyID") int companyID){
-        Company company = companyService.getCompanyByID(companyID);
-        if (company!=null){
-            return new ResponseEntity<Company>(company, HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Cannot be fetched", HttpStatus.NO_CONTENT);
-    }
-
+    // Add Stock by Company ID
 
 }

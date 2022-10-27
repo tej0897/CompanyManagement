@@ -8,18 +8,10 @@ import javax.persistence.Id;
 public class Stock {
 
     @Id
-    @GeneratedValue
     private int stockID;
     int stockPrice;
+    String sCompanyName;
     private int companyIDfk;
-
-    public int getCompanyIDfk() {
-        return companyIDfk;
-    }
-
-    public void setCompanyIDfk(int companyIDfk) {
-        this.companyIDfk = companyIDfk;
-    }
 
     public int getStockID() {
         return stockID;
@@ -37,13 +29,29 @@ public class Stock {
         this.stockPrice = stockPrice;
     }
 
-    public Stock(int stockID, int stockPrice, int companyIDfk) {
+    public String getsCompanyName() {
+        return sCompanyName;
+    }
+
+    public void setsCompanyName(String sCompanyName) {
+        this.sCompanyName = sCompanyName;
+    }
+
+    public int getCompanyIDfk() {
+        return companyIDfk;
+    }
+
+    public void setCompanyIDfk(int companyIDfk) {
+        this.companyIDfk = companyIDfk;
+    }
+
+    public Stock(int stockID, int stockPrice, String sCompanyName, int companyIDfk) {
         this.stockID = stockID;
         this.stockPrice = stockPrice;
+        this.sCompanyName = sCompanyName;
         this.companyIDfk = companyIDfk;
     }
 
     public Stock() {
     }
-
 }

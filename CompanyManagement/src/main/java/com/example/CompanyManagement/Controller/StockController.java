@@ -20,21 +20,22 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
-    @PostMapping("/add/{companyID}")
-    public ResponseEntity<?> addStock(@PathVariable("companyID") int companyID, @RequestBody Stock stock){
-        Company existCompany = companyService.getCompanyByID(companyID);
-        if (existCompany!=null){
-            existCompany.setStockPrice(stock.getStockPrice());
-            stock.setStockID(stock.getStockID());
-            stock.setCompanyIDfk(stock.getCompanyIDfk());
-
-            if (companyService.updateCompany(existCompany) && stockService.addStock(stock)){
-                return new ResponseEntity<>(stock, HttpStatus.CREATED);
-            }
-            return new ResponseEntity<>("Added", HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>("Cannot be added", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @PostMapping("/add/{companyID}")
+//    public ResponseEntity<?> addStock(@PathVariable("companyID") int companyID, @RequestBody Stock stock){
+//        Company existCompany = companyService.getCompanyByID(companyID);
+//        if (existCompany!=null){
+//            existCompany.setCompanyName(stock.getsCompanyName());
+//            stock.setsCompanyName(stock.setsCompanyName());
+//            stock.setStockID(stock.getStockID());
+//            stock.setCompanyIDfk(stock.getCompanyIDfk());
+//
+//            if (companyService.updateCompany(existCompany) && stockService.addStock(stock)){
+//                return new ResponseEntity<>(stock, HttpStatus.CREATED);
+//            }
+//            return new ResponseEntity<>("Added", HttpStatus.CREATED);
+//        }
+//        return new ResponseEntity<>("Cannot be added", HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @GetMapping("/getAllReaders")
     public ResponseEntity<?> getAllStocks(@RequestParam("companyID") int companyID){

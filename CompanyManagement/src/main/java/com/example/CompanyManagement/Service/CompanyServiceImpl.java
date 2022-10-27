@@ -39,8 +39,10 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public boolean updateCompany(Company company) {
         Company company1 = companyRepo.getById(company.getCompanyID());
-
+        company1.setCompanyID(company.getCompanyID());
+        company1.setCompanyName(company.getCompanyName());
         company1.setStockPrice(company.getStockPrice());
+        company1.setNoOfStocks(company.getNoOfStocks());
         companyRepo.saveAndFlush(company1);
         return true;
     }
